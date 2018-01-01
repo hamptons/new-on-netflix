@@ -1,19 +1,20 @@
 import smtplib
 import credentials
+import settings
 from html_builder import HtmlBuilder
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-def send_email(recipient, subject, films, tv_shows):
+def send_email(subject, films, tv_shows):
     smtp_server = 'smtp.gmail.com'
     gmail_user = credentials.gmail_user
     gmail_pwd = credentials.gmail_pwd
-    FROM = 'sam.hampton9@gmail.com'
-    TO = recipient if type(recipient) is list else [recipient]
+    FROM = 'tiftesttif@gmail.com'
+    TO = settings.recipients
 
     msg = MIMEMultipart('alternative')
-    msg['To'] = msg['To'] = ', '.join(TO)
+    msg['To'] = ', '.join(TO)
     msg['From'] = FROM
     msg['Subject'] = subject
 
@@ -33,8 +34,8 @@ def send_email(recipient, subject, films, tv_shows):
         s.ehlo()
         s.starttls()
         s.login(gmail_user, gmail_pwd)
-        s.sendmail(TO, FROM, msg.as_string())
+        s.sendmail(FROM, TO, msg.as_string())
         s.quit()
         print('successfully sent the mail')
     except smtplib.SMTPException as err:
-        print("failed to send mail: " + err)
+        print("failed to send mail: " + str(err))

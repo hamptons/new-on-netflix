@@ -24,16 +24,7 @@ for element in elements:
         else:
             tv_shows.append(title)
 
-print('films: ' + str(len(films)))
-for film in films:
-    print(film)
-
-print('TV Shows: ' + str(len(tv_shows)))
-for show in tv_shows:
-    print(show)
-
 email_handler.send_email(
-    'sam.hampton9@gmail.com',
     date_text,
     films,
     tv_shows)
